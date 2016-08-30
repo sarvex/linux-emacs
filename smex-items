@@ -1,0 +1,19 @@
+
+;; ----- smex-history -----
+(
+ package-list-packages
+ eval-buffer
+ package-autoremove
+ customize-face
+ cd
+ 5x5
+ arp
+)
+
+;; ----- smex-data -----
+(
+ (eval-buffer . 25)
+ (package-list-packages . 27)
+ (customize-face . 1)
+ (package-autoremove . 4)
+)

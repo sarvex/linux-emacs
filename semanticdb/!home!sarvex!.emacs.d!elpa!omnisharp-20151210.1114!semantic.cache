@@ -1,0 +1,16 @@
+;; Object semanticdb-project-database-file
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "semanticdb-project-database-file"
+  :tables
+  (list
+    (semanticdb-table "semanticdb-table"
+      :major-mode emacs-lisp-mode
+      :tags nil
+      :file "omnisharp-autoloads.el"
+      :pointmax 313
+      :fsize 2889
+      :lastmodtime '(22392 49579 775449 817000)
+      :unmatched-syntax nil))
+  :file "!home!sarvex!.emacs.d!elpa!omnisharp-20151210.1114!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

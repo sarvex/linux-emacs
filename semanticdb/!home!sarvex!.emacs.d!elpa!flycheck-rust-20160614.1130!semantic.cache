@@ -1,0 +1,16 @@
+;; Object semanticdb-project-database-file
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "semanticdb-project-database-file"
+  :tables
+  (list
+    (semanticdb-table "semanticdb-table"
+      :major-mode emacs-lisp-mode
+      :tags nil
+      :file "flycheck-rust-autoloads.el"
+      :pointmax 321
+      :fsize 754
+      :lastmodtime '(22392 49481 197052 305000)
+      :unmatched-syntax nil))
+  :file "!home!sarvex!.emacs.d!elpa!flycheck-rust-20160614.1130!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

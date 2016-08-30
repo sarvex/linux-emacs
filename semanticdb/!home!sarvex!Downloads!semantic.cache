@@ -1,0 +1,184 @@
+;; Object semanticdb-project-database-file
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "semanticdb-project-database-file"
+  :tables
+  (list
+    (semanticdb-table "semanticdb-table"
+      :major-mode java-mode
+      :tags 
+        '( ("com.model" package nil nil [1 19])
+            ("java.io.BufferedReader" include nil nil [21 51])
+            ("java.io.BufferedWriter" include nil nil [52 82])
+            ("java.io.File" include nil nil [83 103])
+            ("java.io.FileInputStream" include nil nil [104 135])
+            ("java.io.FileReader" include nil nil [136 162])
+            ("java.io.FileWriter" include nil nil [163 189])
+            ("java.io.IOException" include nil nil [190 217])
+            ("java.util.HashMap" include nil nil [218 243])
+            ("java.util.Map" include nil nil [244 265])
+            ("java.util.Map.Entry" include nil nil [266 293])
+            ("java.util.Properties" include nil nil [294 322])
+            ("java.util.Set" include nil nil [323 344])
+            ("ModelGenerator1" type
+               (:typemodifiers ("public")
+                :members 
+                  ( ("FILE_NAME" variable
+                       (:typemodifiers ("private" "static")
+                        :type "String")
+                        (reparse-symbol class_member_declaration) [379 433])
+                    ("OUTPUT_FILE" variable
+                       (:typemodifiers ("private" "static")
+                        :type "String")
+                        (reparse-symbol class_member_declaration) [435 488])
+                    ("TOKEN" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol class_member_declaration) [490 530])
+                    ("hnr" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol class_member_declaration) [533 581])
+                    ("street" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol class_member_declaration) [583 629])
+                    ("postcode" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol class_member_declaration) [631 681])
+                    ("locality" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol class_member_declaration) [683 733])
+                    ("locality_alias" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol class_member_declaration) [735 796])
+                    ("town" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol class_member_declaration) [798 840])
+                    ("town_alias" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol class_member_declaration) [842 895])
+                    ("district" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol class_member_declaration) [897 947])
+                    ("district_alias" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol class_member_declaration) [949 1010])
+                    ("state" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol class_member_declaration) [1012 1056])
+                    ("state_alias" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol class_member_declaration) [1058 1113])
+                    ("commonString" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol class_member_declaration) [1115 1224])
+                    ("memberBuilder" variable (:type "StringBuffer") (reparse-symbol class_member_declaration) [1226 1309])
+                    ("innerBuffer" variable (:type "StringBuffer") (reparse-symbol class_member_declaration) [1311 1357])
+                    ("FieldsCommonString" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol class_member_declaration) [1361 1422])
+                    ("max_count" variable
+                       (:typemodifiers ("private" "static")
+                        :type "int")
+                        (reparse-symbol class_member_declaration) [1426 1462])
+                    ("fileReader" variable (:type "BufferedReader") (reparse-symbol class_member_declaration) [1600 1633])
+                    ("loadProperties" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("properties" variable (:type "Properties") (reparse-symbol formal_parameters) [1664 1685]))                          
+                        :type "void")
+                        (reparse-symbol class_member_declaration) [1637 2418])
+                    ("getindexForField" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("key" variable (:type "String") (reparse-symbol formal_parameters) [2451 2461]))                          
+                        :type "int")
+                        (reparse-symbol class_member_declaration) [2422 2509])
+                    ("main" function
+                       (:throws ("IOException")
+                        :typemodifiers ("public" "static")
+                        :arguments 
+                          ( ("args" variable
+                               (:dereference 1
+                                :type "String")
+                                (reparse-symbol formal_parameters) [2537 2550]))                          
+                        :type "void")
+                        (reparse-symbol class_member_declaration) [2513 2827])
+                    ("getKeyForKey" function
+                       (:typemodifiers ("private")
+                        :arguments 
+                          ( ("key" variable (:type "String") (reparse-symbol formal_parameters) [2858 2868]))                          
+                        :type "String")
+                        (reparse-symbol class_member_declaration) [2830 2989])
+                    ("createSource" function
+                       (:throws ("IOException")
+                        :typemodifiers ("public")
+                        :type "void")
+                        (reparse-symbol class_member_declaration) [2992 3677])
+                    ("createModel" function
+                       (:throws ("IOException")
+                        :typemodifiers ("public")
+                        :type "void")
+                        (reparse-symbol class_member_declaration) [3680 7673])
+                    ("createFinalXMI" function
+                       (:throws ("IOException")
+                        :typemodifiers ("private")
+                        :arguments 
+                          ( ("innerBuffer" variable (:type "StringBuffer") (reparse-symbol formal_parameters) [7704 7728])
+                            ("hnrBuilder" variable (:type "StringBuffer") (reparse-symbol formal_parameters) [7730 7753])
+                            ("streetBuilder" variable (:type "StringBuffer") (reparse-symbol formal_parameters) [7755 7781])
+                            ("postcodeBuilder" variable (:type "StringBuffer") (reparse-symbol formal_parameters) [7786 7814])
+                            ("localityBuilder" variable (:type "StringBuffer") (reparse-symbol formal_parameters) [7816 7844])
+                            ("localityAliasBuilder" variable (:type "StringBuffer") (reparse-symbol formal_parameters) [7846 7879])
+                            ("townBuilder" variable (:type "StringBuffer") (reparse-symbol formal_parameters) [7884 7908])
+                            ("townAliasBuilder" variable (:type "StringBuffer") (reparse-symbol formal_parameters) [7910 7939])
+                            ("districtBuilder" variable (:type "StringBuffer") (reparse-symbol formal_parameters) [7941 7969])
+                            ("districtAliasBuilder" variable (:type "StringBuffer") (reparse-symbol formal_parameters) [7974 8007])
+                            ("stateBuilder" variable (:type "StringBuffer") (reparse-symbol formal_parameters) [8009 8034])
+                            ("stateAliasBuilder" variable (:type "StringBuffer") (reparse-symbol formal_parameters) [8036 8066])
+                            ("memberBuilder" variable (:type "StringBuffer") (reparse-symbol formal_parameters) [8071 8097])
+                            ("internalSize" variable (:type "int") (reparse-symbol formal_parameters) [8099 8115])
+                            ("i" variable (:type "int") (reparse-symbol formal_parameters) [8117 8122]))                          
+                        :type "void")
+                        (reparse-symbol class_member_declaration) [7676 9656])
+                    ("populateFieldBuilder" function
+                       (:typemodifiers ("private")
+                        :arguments 
+                          ( ("builder" variable (:type "StringBuffer") (reparse-symbol formal_parameters) [9692 9712])
+                            ("fieldString" variable (:type "String") (reparse-symbol formal_parameters) [9714 9732])
+                            ("field" variable (:type "String") (reparse-symbol formal_parameters) [9734 9746])
+                            ("internalSize" variable (:type "int") (reparse-symbol formal_parameters) [9751 9767])
+                            ("i" variable (:type "int") (reparse-symbol formal_parameters) [9769 9774])
+                            ("id" variable (:type "int") (reparse-symbol formal_parameters) [9776 9782]))                          
+                        :type "int")
+                        (reparse-symbol class_member_declaration) [9659 10266])
+                    ("populateAdditionalFieldBuilder" function
+                       (:typemodifiers ("private")
+                        :arguments 
+                          ( ("field" variable (:type "String") (reparse-symbol formal_parameters) [10318 10330])
+                            ("internalSize" variable (:type "int") (reparse-symbol formal_parameters) [10331 10347])
+                            ("i" variable (:type "int") (reparse-symbol formal_parameters) [10349 10354])
+                            ("id" variable (:type "int") (reparse-symbol formal_parameters) [10356 10362]))                          
+                        :type "int")
+                        (reparse-symbol class_member_declaration) [10274 10542]))                  
+                :type "class")
+                nil [346 10545]))          
+      :file "ModelGenerator1.java"
+      :pointmax 10546
+      :fsize 10811
+      :lastmodtime '(22432 28721 223495 877000)
+      :unmatched-syntax nil))
+  :file "!home!sarvex!Downloads!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

@@ -1,0 +1,17 @@
+;; Object semanticdb-project-database-file
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "semanticdb-project-database-file"
+  :tables
+  (list
+    (semanticdb-table "semanticdb-table"
+      :major-mode emacs-lisp-mode
+      :tags 
+        '( ("add-to-list" code nil nil [93 185]))          
+      :file "flycheck-google-cpplint-autoloads.el"
+      :pointmax 419
+      :fsize 340
+      :lastmodtime '(22392 49450 304268 820000)
+      :unmatched-syntax nil))
+  :file "!home!sarvex!.emacs.d!elpa!flycheck-google-cpplint-20140806.925!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")
