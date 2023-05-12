@@ -147,14 +147,16 @@ class TestGetPythonProjectFiles(RopeBackendTestCase):
         self.project_file("gooddir/__init__.py", "")
         self.project_file("gooddir/file.py", "")
         self.project_file("baddir/file.py", "")
-        expected = set(os.path.join(self.project_root, name)
-                       for name in ["foo.txt", "gooddir/__init__.py",
-                                    "gooddir/file.py"])
+        expected = {
+            os.path.join(self.project_root, name)
+            for name in ["foo.txt", "gooddir/__init__.py", "gooddir/file.py"]
+        }
         project = self.backend.project
 
-        actual = set(resource.real_path
-                     for resource
-                     in ropebackend.get_python_project_files(project))
+        actual = {
+            resource.real_path
+            for resource in ropebackend.get_python_project_files(project)
+        }
 
         self.assertEqual(expected, actual)
 
@@ -165,13 +167,14 @@ class TestPatchProjectFiles(RopeBackendTestCase):
         self.project_file("gooddir/__init__.py", "")
         self.project_file("gooddir/file.py", "")
         self.project_file("baddir/file.py", "")
-        expected = set(os.path.join(self.project_root, name)
-                       for name in ["foo.txt", "gooddir/__init__.py",
-                                    "gooddir/file.py"])
+        expected = {
+            os.path.join(self.project_root, name)
+            for name in ["foo.txt", "gooddir/__init__.py", "gooddir/file.py"]
+        }
 
-        actual = set(resource.real_path
-                     for resource
-                     in self.backend.project.get_files())
+        actual = {
+            resource.real_path for resource in self.backend.project.get_files()
+        }
         self.assertEqual(expected, actual)
 
 

@@ -113,8 +113,7 @@ class RopeBackend(object):
             return []
         prefixlen = offset - starting_offset
         try:
-            self.completions = dict((proposal.name, proposal)
-                                    for proposal in proposals)
+            self.completions = {proposal.name: proposal for proposal in proposals}
             return [{'name': proposal.name,
                      'suffix': proposal.name[prefixlen:],
                      'annotation': proposal.type,
@@ -125,23 +124,19 @@ class RopeBackend(object):
 
     def rpc_get_completion_docstring(self, completion):
         proposal = self.completions.get(completion)
-        if proposal is None:
-            return None
-        else:
-            return proposal.get_doc()
+        return None if proposal is None else proposal.get_doc()
 
     def rpc_get_completion_location(self, completion):
         proposal = self.completions.get(completion)
         if proposal is None:
             return None
-        else:
-            if not proposal.pyname:
-                return None
-            module, lineno = proposal.pyname.get_definition_location()
-            if module is None:
-                return None
-            resource = module.get_module().get_resource()
-            return (resource.real_path, lineno)
+        if not proposal.pyname:
+            return None
+        module, lineno = proposal.pyname.get_definition_location()
+        if module is None:
+            return None
+        resource = module.get_module().get_resource()
+        return (resource.real_path, lineno)
 
     def rpc_get_definition(self, filename, source, offset):
         location = self.call_rope(
@@ -224,9 +219,11 @@ def find_source_folders(self, folder):
         if resource.name.endswith('.py'):
             result.append(folder)
             break
-    for resource in folder.get_folders():
-        if self._is_package(resource):
-            result.append(resource)
+    result.extend(
+        resource
+        for resource in folder.get_folders()
+        if self._is_package(resource)
+    )
     return result
 
 import rope.base.pycore
@@ -260,8 +257,7 @@ orig_code_completions = (rope.contrib.codeassist.
 
 
 def code_completions(self):
-    proposals = get_import_completions(self)
-    if proposals:
+    if proposals := get_import_completions(self):
         return proposals
     else:
         return orig_code_completions(self)
@@ -274,9 +270,11 @@ def get_import_completions(self):
     # Rope can handle modules in packages
     if "." in modulename:
         return []
-    return dict((name, FakeProposal(name))
-                for name in elpy.pydocutils.get_modules()
-                if name.startswith(modulename))
+    return {
+        name: FakeProposal(name)
+        for name in elpy.pydocutils.get_modules()
+        if name.startswith(modulename)
+    }
 
 
 class FakeProposal(object):

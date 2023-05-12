@@ -153,10 +153,7 @@ class Refactor(object):
             eol = len(data)
         line = data[bol:eol]
         line = line.strip()
-        if line.startswith("import ") or line.startswith("from "):
-            return True
-        else:
-            return False
+        return bool(line.startswith("import ") or line.startswith("from "))
 
     def _is_on_symbol(self, offset):
         "Is this offset on a symbol?"
@@ -167,11 +164,7 @@ class Refactor(object):
             return False
         if data[offset] != '_' and not data[offset].isalnum():
             return False
-        word = worder.get_name_at(self.resource, offset)
-        if word:
-            return True
-        else:
-            return False
+        return bool(word := worder.get_name_at(self.resource, offset))
 
     def get_changes(self, name, *args):
         """Return a list of changes for the named refactoring action.
@@ -310,18 +303,14 @@ class Refactor(object):
         try:
             refactor = UseFunction(self.project, self.resource, offset)
         except RefactoringError as e:
-            raise Fault(
-                'Refactoring error: {}'.format(e),
-                code=400
-            )
+            raise Fault(f'Refactoring error: {e}', code=400)
         return self._get_changes(refactor)
 
     def _get_changes(self, refactor, *args, **kwargs):
         try:
             changes = refactor.get_changes(*args, **kwargs)
         except Exception as e:
-            raise Fault("Error during refactoring: {}".format(e),
-                        code=400)
+            raise Fault(f"Error during refactoring: {e}", code=400)
         return translate_changes(changes)
 
 

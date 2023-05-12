@@ -27,7 +27,4 @@ else:
         strings. No idea why.
 
         """
-        if isinstance(obj, unicode):
-            return obj.encode("utf-8")
-        else:
-            return obj
+        return obj.encode("utf-8") if isinstance(obj, unicode) else obj

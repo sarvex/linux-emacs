@@ -36,8 +36,7 @@ class JediBackend(object):
                                    path=filename, encoding='utf-8')
         if proposals is None:
             return []
-        self.completions = dict((proposal.name, proposal)
-                                for proposal in proposals)
+        self.completions = {proposal.name: proposal for proposal in proposals}
         return [{'name': proposal.name.rstrip("="),
                  'suffix': proposal.complete.rstrip("="),
                  'annotation': proposal.type,
@@ -46,17 +45,11 @@ class JediBackend(object):
 
     def rpc_get_completion_docstring(self, completion):
         proposal = self.completions.get(completion)
-        if proposal is None:
-            return None
-        else:
-            return proposal.docstring(fast=False)
+        return None if proposal is None else proposal.docstring(fast=False)
 
     def rpc_get_completion_location(self, completion):
         proposal = self.completions.get(completion)
-        if proposal is None:
-            return None
-        else:
-            return (proposal.module_path, proposal.line)
+        return None if proposal is None else (proposal.module_path, proposal.line)
 
     def rpc_get_docstring(self, filename, source, offset):
         line, column = pos_to_linecol(source, offset)
@@ -95,31 +88,35 @@ class JediBackend(object):
                                        path=filename, encoding='utf-8')
         if not locations:
             return None
-        else:
-            loc = locations[-1]
-            try:
-                if loc.module_path:
-                    if loc.module_path == filename:
-                        offset = linecol_to_pos(source,
+        loc = locations[-1]
+        try:
+            if loc.module_path:
+                if loc.module_path == filename:
+                    offset = linecol_to_pos(source,
+                                            loc.line,
+                                            loc.column)
+                else:
+                    with open(loc.module_path) as f:
+                        offset = linecol_to_pos(f.read(),
                                                 loc.line,
                                                 loc.column)
-                    else:
-                        with open(loc.module_path) as f:
-                            offset = linecol_to_pos(f.read(),
-                                                    loc.line,
-                                                    loc.column)
-                else:
-                    return None
-            except IOError:
+            else:
                 return None
-            return (loc.module_path, offset)
+        except IOError:
+            return None
+        return (loc.module_path, offset)
 
     def rpc_get_calltip(self, filename, source, offset):
         line, column = pos_to_linecol(source, offset)
-        calls = run_with_debug(jedi, 'call_signatures',
-                               source=source, line=line, column=column,
-                               path=filename, encoding='utf-8')
-        if calls:
+        if calls := run_with_debug(
+            jedi,
+            'call_signatures',
+            source=source,
+            line=line,
+            column=column,
+            path=filename,
+            encoding='utf-8',
+        ):
             call = calls[0]
         else:
             call = None
@@ -128,11 +125,8 @@ class JediBackend(object):
         try:
             call.index
         except AttributeError as e:
-            if "get_definition" in str(e):
+            if "get_definition" in str(e) or "get_subscope_by_name" in str(e):
                 # Bug #627 / jedi#573
-                return None
-            elif "get_subscope_by_name" in str(e):
-                # Bug #677 / jedi#628
                 return None
             else:
                 raise
@@ -204,7 +198,7 @@ def linecol_to_pos(text, line, col):
 
     """
     nth_newline_offset = 0
-    for i in range(line - 1):
+    for _ in range(line - 1):
         new_offset = text.find("\n", nth_newline_offset)
         if new_offset < 0:
             raise ValueError("Text does not have {0} lines."

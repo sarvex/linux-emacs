@@ -223,10 +223,7 @@ class TestRenameAtPoint(RefactorTestCase):
         first, second = ref.refactor_rename_at_point(offset, "frob",
                                                      in_hierarchy=False,
                                                      docs=False)
-        if first['file'] == filename:
-            a, b = first, second
-        else:
-            a, b = second, first
+        a, b = (first, second) if first['file'] == filename else (second, first)
         self.assertEqual(a['action'], 'change')
         self.assertEqual(a['file'], filename)
         self.assertSourceEqual(a['contents'],
@@ -281,10 +278,7 @@ class TestRenameAtPoint(RefactorTestCase):
         first, second = ref.refactor_rename_at_point(offset, "frob",
                                                      in_hierarchy=True,
                                                      docs=False)
-        if first['file'] == filename:
-            a, b = first, second
-        else:
-            a, b = second, first
+        a, b = (first, second) if first['file'] == filename else (second, first)
         self.assertEqual(a['action'], 'change')
         self.assertEqual(a['file'], filename)
         self.assertSourceEqual(a['contents'],

@@ -8,7 +8,7 @@ from shutil import move
 def rename(root, f):
     if f.endswith('.yasnippet'):
         base, _ = f.split('.')
-        print("move %s to %s" % (join(root, f), join(root, base)))
+        print(f"move {join(root, f)} to {join(root, base)}")
         move(join(root, f), join(root, base))
 
 

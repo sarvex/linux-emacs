@@ -34,5 +34,4 @@ def fix_code(code):
                                                     verify=False)
         return reformatted_source
     except Exception as e:
-            raise Fault("Error during formatting: {}".format(e),
-                        code=400)
+        raise Fault(f"Error during formatting: {e}", code=400)

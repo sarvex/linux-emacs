@@ -49,9 +49,7 @@ except ImportError:
 
 def find_source(name):
     """Given an object as string, `name`, print its place in source code."""
-    # FIXME: use JSON display object instead of stdout
-    ret = _find_edit_target(name, {}, [])
-    if ret:
+    if ret := _find_edit_target(name, {}, []):
         (filename, lineno, use_temp) = ret
         if not use_temp:
             print(filename)

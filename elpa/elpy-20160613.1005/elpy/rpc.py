@@ -47,14 +47,8 @@ class JSONRPCServer(object):
         responses to stdout.
 
         """
-        if stdin is None:
-            self.stdin = sys.stdin
-        else:
-            self.stdin = stdin
-        if stdout is None:
-            self.stdout = sys.stdout
-        else:
-            self.stdout = stdout
+        self.stdin = sys.stdin if stdin is None else stdin
+        self.stdout = sys.stdout if stdout is None else stdout
 
     def read_json(self):
         """Read a single line and decode it as JSON.
@@ -95,7 +89,7 @@ class JSONRPCServer(object):
         request_id = request.get('id', None)
         params = request.get('params') or []
         try:
-            method = getattr(self, "rpc_" + method_name, None)
+            method = getattr(self, f"rpc_{method_name}", None)
             if method is not None:
                 result = method(*params)
             else:

@@ -70,7 +70,7 @@ class GenericRPCTests(object):
         return method(filename, source, offset)
 
     def test_should_not_fail_on_inexisting_file(self):
-        filename = self.project_root + "/doesnotexist.py"
+        filename = f"{self.project_root}/doesnotexist.py"
         self.rpc(filename, "", 0)
 
     def test_should_not_fail_on_empty_file(self):
@@ -368,10 +368,7 @@ class RPCGetCompletionsTests(GenericRPCTests):
         completions = self.backend.rpc_get_completions(filename,
                                                        source,
                                                        offset)
-        if compat.PYTHON3:
-            expected = ["processing"]
-        else:
-            expected = ["file", "processing"]
+        expected = ["processing"] if compat.PYTHON3 else ["file", "processing"]
         self.assertEqual(sorted([cand['suffix'] for cand in completions]),
                          sorted(expected))
 

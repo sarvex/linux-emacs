@@ -45,8 +45,10 @@ def get_pydoc_completions(modulename):
 
 
 def get_completions(modulename):
-    modules = set("{0}.{1}".format(modulename, module)
-                  for module in get_modules(modulename))
+    modules = {
+        "{0}.{1}".format(modulename, module)
+        for module in get_modules(modulename)
+    }
 
     try:
         module, name = resolve(modulename)

@@ -43,7 +43,7 @@ class ImportMagic(object):
             else:
                 index.build_index([project_root] + sys.path)
         except Exception as e:
-            self.fail_message = "symbol index failed to build: %s" % e
+            self.fail_message = f"symbol index failed to build: {e}"
         else:
             self.symbol_index = index
 
@@ -60,13 +60,13 @@ class ImportMagic(object):
 
         def sort_key(item):
             score, mod, var = item
-            if mod in self.favorites:
-                return 2 + score, mod, var
-            return score, mod, var
+            return (2 + score, mod, var) if mod in self.favorites else (score, mod, var)
 
         scores.sort(key=sort_key, reverse=True)
-        return ["from %s import %s" % (mod, var) if var else "import %s" % mod
-                for (_, mod, var) in scores]
+        return [
+            f"from {mod} import {var}" if var else f"import {mod}"
+            for (_, mod, var) in scores
+        ]
 
     def add_import(self, source, statement):
         imports = importmagic.importer.Imports(self.symbol_index, source)

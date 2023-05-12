@@ -44,10 +44,7 @@ class ElpyRPCServer(JSONRPCServer):
 
         If there is currently no backend, return default."""
         meth = getattr(self.backend, method, None)
-        if meth is None:
-            return default
-        else:
-            return meth(*args, **kwargs)
+        return default if meth is None else meth(*args, **kwargs)
 
     def rpc_echo(self, *args):
         """Return the arguments.
@@ -64,13 +61,14 @@ class ElpyRPCServer(JSONRPCServer):
         if self.import_magic.is_enabled:
             self.import_magic.build_index(self.project_root)
 
-        if ropebackend and options["backend"] == "rope":
+        if (
+            ropebackend
+            and options["backend"] == "rope"
+            or (not jedibackend or options["backend"] != "jedi")
+            and ropebackend
+        ):
             self.backend = ropebackend.RopeBackend(self.project_root)
-        elif jedibackend and options["backend"] == "jedi":
-            self.backend = jedibackend.JediBackend(self.project_root)
-        elif ropebackend:
-            self.backend = ropebackend.RopeBackend(self.project_root)
-        elif jedibackend:
+        elif jedibackend and options["backend"] == "jedi" or jedibackend:
             self.backend = jedibackend.JediBackend(self.project_root)
         else:
             self.backend = None
@@ -94,8 +92,7 @@ class ElpyRPCServer(JSONRPCServer):
         results = self._call_backend("rpc_get_completions", [], filename,
                                      get_source(source), offset)
         # Uniquify by name
-        results = list(dict((res['name'], res) for res in results)
-                       .values())
+        results = list({res['name']: res for res in results}.values())
         results.sort(key=lambda cand: _pysymbol_key(cand["name"]))
         return results
 
@@ -276,17 +273,16 @@ def get_source(fileobj):
     """
     if not isinstance(fileobj, dict):
         return fileobj
-    else:
-        try:
-            with io.open(fileobj["filename"], encoding="utf-8",
-                         errors="ignore") as f:
-                return f.read()
-        finally:
-            if fileobj.get('delete_after_use'):
-                try:
-                    os.remove(fileobj["filename"])
-                except:  # pragma: no cover
-                    pass
+    try:
+        with io.open(fileobj["filename"], encoding="utf-8",
+                     errors="ignore") as f:
+            return f.read()
+    finally:
+        if fileobj.get('delete_after_use'):
+            try:
+                os.remove(fileobj["filename"])
+            except:  # pragma: no cover
+                pass
 
 
 def _pysymbol_key(name):
@@ -300,5 +296,5 @@ def _pysymbol_key(name):
 
     """
     if name.startswith("_"):
-        name = "~" + name[1:]
+        name = f"~{name[1:]}"
     return name.lower()
